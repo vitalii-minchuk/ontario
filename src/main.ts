@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import routes from 'virtual:generated-pages'
 
 import './styles/main.css'
+import 'vue3-toastify/dist/index.css'
 
 import App from './App.vue'
 import { vuetify } from './modules/vuetify'

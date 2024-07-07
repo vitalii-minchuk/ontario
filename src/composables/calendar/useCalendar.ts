@@ -8,7 +8,7 @@ export function useCalendar(): CalendarCompositionModel {
   const currentDateAsYearMonth = [
     currentDate.getFullYear(),
     ('0' + (currentDate.getMonth() + 1)).slice(-2)
-  ].join('/')
+  ].join('/') // 1999/11
 
   return {
     currentDateAsYearMonth

@@ -22,7 +22,14 @@ export default defineConfig({
     AutoImport({
       imports: ['vue', 'vue-router', '@vueuse/core'],
       dts: true,
-      dirs: ['src/composables', 'src/composables/**/', 'src/stores', 'src/stores/**/'],
+      dirs: [
+        'src/composables',
+        'src/composables/**/',
+        'src/stores',
+        'src/stores/**/',
+        'src/constants',
+        'src/constants/**/'
+      ],
       vueTemplate: true
     }),
     Vuetify({

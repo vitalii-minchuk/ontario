@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 import defHttp from '~/modules/axios'
-import { IEvent } from './types'
+import { ICreateNewEventInput, IEvent } from './types'
 
 enum Api {
   ALL = '/api/Event/All',
@@ -9,4 +9,8 @@ enum Api {
 
 export function getAllEvents(): Promise<AxiosResponse<IEvent[]>> {
   return defHttp.get(Api.ALL)
+}
+
+export function createNewEvent(input: ICreateNewEventInput): Promise<AxiosResponse<IEvent>> {
+  return defHttp.post(Api.CREATE, input)
 }

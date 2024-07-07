@@ -1,92 +1,114 @@
+import { toast } from 'vue3-toastify'
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import { IEvent } from '~/api/calendar/types'
+import { createNewEvent, getAllEvents } from '~/api/calendar'
+import { ICreateNewEventInput, IEvent } from '~/api/calendar/types'
 
 interface EventsState {
   events: IEvent[]
+  selectedCategoryIds: string[]
 }
 
 export const useEventsStore = defineStore({
   id: 'events',
 
   state: (): EventsState => ({
-    events: []
+    events: [],
+    selectedCategoryIds: []
   }),
 
   getters: {
-    getProjectTypeNameById(): (id: number) => string {
-      return (id: number) => {
-        const type = this.projectTypes.find((t) => t.id === id)
-        return type ? type?.name : ''
-      }
+    // eventse(): (id: number) => string {
+    //   return (id: number) => {
+    //     const type = this.projectTypes.find((t) => t.id === id)
+    //     return type ? type?.name : ''
+    //   }
+    // },
+    getEvents(): IEvent[] {
+      return this.events
     },
-    getFilteredPresentations(): ParserPresentationModel[] {
-      let filteredPresentations = this.getAllPresentations
+    getSelectedCategoryIds(): string[] {
+      return this.selectedCategoryIds
+    },
+    getFilteredEvents(): IEvent[] {
+      let filteredEvents = [...this.getEvents]
 
-      if (this.getSelectedDirectionId) {
-        filteredPresentations = filteredPresentations.filter((p) => {
-          return p.directionId === this.getSelectedDirectionId
+      if (this.selectedCategoryIds.length) {
+        filteredEvents = filteredEvents.filter((el) => {
+          return this.selectedCategoryIds.includes(el.categoryId)
         })
       }
-      if (this.getSelectedLanguageId) {
-        filteredPresentations = filteredPresentations.filter((p) => {
-          return p.languageId === this.getSelectedLanguageId
-        })
-      }
-      if (this.getSearch)
-        filteredPresentations = filteredPresentations.filter((p) => p.name.match(this.getSearch))
 
-      return filteredPresentations
-    },
-    items: (state): Array<{ name: string; amount: number }> =>
-      state.rawItems.reduce(
-        (items, item) => {
-          const existingItem = items.find((it) => it.name === item)
-
-          if (!existingItem) {
-            items.push({ name: item, amount: 1 })
-          } else {
-            existingItem.amount++
-          }
-
-          return items
-        },
-        [] as Array<{ name: string; amount: number }>
-      )
+      return filteredEvents
+    }
   },
 
   actions: {
-    async login(user: string, password: string) {
-      const userData = await apiLogin(user, password)
+    showLoader(): void {
+      const { showLoader } = useLoaderStore()
 
-      this.$patch({
-        name: user,
-        ...userData
-      })
+      showLoader()
+    },
+    hideLoader(): void {
+      const { hideLoader } = useLoaderStore()
+
+      hideLoader()
+    },
+    setSelectedCategoriesIds(ids: string[]): void {
+      this.selectedCategoryIds = ids
+    },
+    setEvents(events: IEvent[]): void {
+      this.events = [...events]
+    },
+    loadCategoriesIds(): void {
+      const ids = eventsCategories.map((el) => el.categoryId)
+
+      this.setSelectedCategoriesIds(ids)
+    },
+    async loadEvents(): Promise<void> {
+      this.showLoader()
+      try {
+        const events = await getAllEvents()
+        console.log(events.data)
+        this.setEvents(events.data)
+      } catch (error) {
+        toast.error('Something went wrong', { theme: 'auto' })
+      } finally {
+        this.hideLoader()
+      }
     },
 
-    updateRoute(): void {
-      const query: Recordable = {}
-
-      if (this.selectedTab) query.tab = this.getCurrentTabData?.alias
-      else query.tab = this.getCurrentTabData?.type
-
-      if (this.searchTechnology) query.search = this.searchTechnology
-
-      this.router.replace({
-        query
-      })
+    async createEvent(input: ICreateNewEventInput) {
+      this.showLoader()
+      try {
+        await createNewEvent(input)
+        await this.loadEvents()
+        toast.success('Success', { theme: 'auto' })
+      } catch (error) {
+        toast.error('Something went wrong', { theme: 'auto' })
+      } finally {
+        this.hideLoader()
+      }
     },
+
+    // updateRoute(): void {
+    //   const query: Recordable = {}
+
+    //   if (this.selectedTab) query.tab = this.getCurrentTabData?.alias
+    //   else query.tab = this.getCurrentTabData?.type
+
+    //   if (this.searchTechnology) query.search = this.searchTechnology
+
+    //   this.router.replace({
+    //     query
+    //   })
+    // },
     loadData() {
-      this.loadTechnologiesList()
-      this.loadSkillsList()
-      this.loadWishesList()
+      this.loadCategoriesIds()
+      this.loadEvents()
     },
     resetState(): void {
-      this.projectTypes = []
-      this.isProjectTypeNew = true
-      this.isProjectTypesTableShown = false
-      this.isProjectTypesDialogShown = false
-      this.editedProjectType = Object.assign({}, defaultProjectType)
+      this.selectedCategoryIds = []
+      this.events = []
     }
   }
 })
