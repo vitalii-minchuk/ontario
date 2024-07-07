@@ -1,3 +1,9 @@
+<script setup lang="ts">
+const date = useCalendar()
+
+console.log(date)
+</script>
+
 <template>
   <div class="item">
     <i>

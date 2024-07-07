@@ -4,8 +4,15 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Vuetify from 'vite-plugin-vuetify'
 import Pages from 'vite-plugin-pages'
+import path from 'node:path'
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      // eslint-disable-next-line no-undef
+      '~/': `${path.resolve(__dirname, 'src')}/`
+    }
+  },
   plugins: [
     Vue(),
     Pages(),
