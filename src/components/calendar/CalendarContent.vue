@@ -18,7 +18,7 @@ const {
 } = useCalendar()
 </script>
 
-<template id="calendar">
+<template>
   <div class="calendar">
     <div class="header">
       <a class="arrow" @click="movePreviousYear">&laquo;</a>
@@ -37,12 +37,14 @@ const {
     <div class="week" v-for="week in weeks" :key="String(week)">
       <div
         :key="String(day.date)"
-        class="day"
+        class="day-cell"
         :class="{ today: day.isToday, 'not-in-month': !day.inMonth }"
         v-for="day in week"
       >
-        {{ day.day }}
-        <div>
+        <p class="day">
+          {{ day.day }}
+        </p>
+        <div class="events-box">
           {{ eventsStore.getDayEventsByDate(`${day.year}-${day.month}-${day.day}`) }}
           <p
             v-for="event in eventsStore.getDayEventsByDate(
@@ -100,7 +102,7 @@ const {
 }
 
 .weekday {
-  width: 250px; /* Replace with your day width */
+  width: 700px; /* Replace with your day width */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -117,22 +119,31 @@ const {
   display: flex;
 }
 
-.day {
-  width: 250px; /* Replace with your day width */
+.day-cell {
+  width: 700px; /* Replace with your day width */
   min-height: 100px; /* Replace with your day height */
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: #333; /* Replace with your day color */
   background-color: #fff; /* Replace with your day background color */
   border: 1px solid #ddd; /* Replace with your day border */
   cursor: default;
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.day {
+  padding: 4px;
+}
+
+.events-box {
+  padding: 4px;
+  flex-basis: 100%;
 }
 
 .today {
   font-weight: 500;
   color: #fff; /* Replace with your today color */
-  background-color: #00f; /* Replace with your today background color */
+  background-color: #2196f3;
 }
 
 .not-in-month {

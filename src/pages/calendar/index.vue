@@ -1,12 +1,29 @@
 <script setup lang="ts">
-const eventsStore = useEventsStore()
+import { toast } from 'vue3-toastify'
 
-onBeforeMount(() => eventsStore.loadData())
+// import { toast } from 'vue3-toastify'
+
+const eventsStore = useEventsStore()
+const loaderStore = useLoaderStore()
+
+onBeforeMount(() => {
+  loaderStore.showLoader()
+  eventsStore
+    .loadData()
+    .catch(() => {
+      toast.error('Something went wrong', { theme: 'auto' })
+    })
+    .finally(() => {
+      loaderStore.hideLoader()
+    })
+})
 </script>
 
 <template>
-  <CalendarHeader />
-  <CalendarContent />
-  <CalendarFooter />
-  <CalendarCreateEventModal />
+  <v-container class="m-4">
+    <CalendarHeader />
+    <CalendarContent />
+    <CalendarFooter />
+    <CalendarCreateEventModal />
+  </v-container>
 </template>

@@ -30,7 +30,9 @@ export default defineConfig({
         'src/constants',
         'src/constants/**/',
         'src/helpers',
-        'src/helpers/**/'
+        'src/helpers/**/',
+        'src/enums',
+        'src/enums/**/'
       ],
       vueTemplate: true
     }),
