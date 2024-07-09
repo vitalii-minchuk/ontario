@@ -3,11 +3,12 @@ const modalsStore = useModalsStore()
 const eventsStore = useEventsStore()
 
 const handleCreateEvent = () => {
+  const date = new Date().toISOString()
   const input = {
-    // startDate: '2024-07-07T20:45:16.777Z',
-    // endDate: '2024-07-07T20:46:33.961Z',
-    // name: 'test44',
-    // categoryId: '23585758-9bdc-4d54-8b98-670c6f1dda5f'
+    startDate: date,
+    endDate: date,
+    name: 'test77',
+    categoryId: '23585758-9bdc-4d54-8b98-670c6f1dda5f'
   }
   eventsStore.createEvent(input)
 }

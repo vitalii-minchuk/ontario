@@ -8,6 +8,7 @@ const handleOpenCreateEventModal = () => {
 
 <template>
   <div>
+    <v-select> </v-select>
     <v-btn color="primary" block @click="handleOpenCreateEventModal">Create Event</v-btn>
   </div>
 </template>

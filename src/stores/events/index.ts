@@ -5,6 +5,7 @@ import { ICreateNewEventInput, IEvent } from '~/api/calendar/types'
 
 interface EventsState {
   events: IEvent[]
+  formattedEvents: Record<string, IEvent[]>
   selectedCategoryIds: string[]
 }
 
@@ -13,32 +14,35 @@ export const useEventsStore = defineStore({
 
   state: (): EventsState => ({
     events: [],
+    formattedEvents: {},
     selectedCategoryIds: []
   }),
 
   getters: {
-    // eventse(): (id: number) => string {
-    //   return (id: number) => {
-    //     const type = this.projectTypes.find((t) => t.id === id)
-    //     return type ? type?.name : ''
-    //   }
-    // },
     getEvents(): IEvent[] {
       return this.events
     },
     getSelectedCategoryIds(): string[] {
       return this.selectedCategoryIds
     },
-    getFilteredEvents(): IEvent[] {
-      let filteredEvents = [...this.getEvents]
+    getFilteredFormattedEvents(): Record<string, IEvent[]> {
+      const filteredEvents = { ...this.formattedEvents }
 
       if (this.selectedCategoryIds.length) {
-        filteredEvents = filteredEvents.filter((el) => {
-          return this.selectedCategoryIds.includes(el.categoryId)
-        })
+        for (const key in filteredEvents) {
+          filteredEvents[key] = filteredEvents[key].filter((el) => {
+            return this.selectedCategoryIds.includes(el.categoryId)
+          })
+        }
       }
 
       return filteredEvents
+    },
+    getDayEventsByDate(): (date: string) => IEvent[] {
+      return (date: string) => {
+        console.log(date)
+        return this.getFilteredFormattedEvents[date]
+      }
     }
   },
 
@@ -52,6 +56,35 @@ export const useEventsStore = defineStore({
       const { hideLoader } = useLoaderStore()
 
       hideLoader()
+    },
+    formatEvents(events: IEvent[]): void {
+      const dateEventsMap = {}
+
+      events.forEach((event) => {
+        const startDate = new Date(event.startDate)
+        const endDate = new Date(event.endDate)
+
+        // Ensure startDate and endDate are valid dates
+        if (isNaN(startDate) || isNaN(endDate)) {
+          console.warn(`Invalid date for event: ${event.name}`)
+          return
+        }
+
+        // Iterate over the date range from startDate to endDate
+        while (startDate <= endDate) {
+          const dateKey = startDate.toISOString().split('T')[0]
+
+          if (!dateEventsMap[dateKey]) {
+            dateEventsMap[dateKey] = []
+          }
+
+          dateEventsMap[dateKey].push(event)
+
+          // Move to the next day
+          startDate.setDate(startDate.getDate() + 1)
+        }
+      })
+      this.formattedEvents = dateEventsMap
     },
     setSelectedCategoriesIds(ids: string[]): void {
       this.selectedCategoryIds = ids
@@ -68,8 +101,8 @@ export const useEventsStore = defineStore({
       this.showLoader()
       try {
         const events = await getAllEvents()
-        console.log(events.data)
         this.setEvents(events.data)
+        this.formatEvents(events.data)
       } catch (error) {
         toast.error('Something went wrong', { theme: 'auto' })
       } finally {

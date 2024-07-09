@@ -28,7 +28,9 @@ export default defineConfig({
         'src/stores',
         'src/stores/**/',
         'src/constants',
-        'src/constants/**/'
+        'src/constants/**/',
+        'src/helpers',
+        'src/helpers/**/'
       ],
       vueTemplate: true
     }),
