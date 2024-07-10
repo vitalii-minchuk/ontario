@@ -33,10 +33,10 @@ const handleCreateEvent = () => {
       return eventsStore.loadData()
     })
     .then(() => {
-      toast.success('Event has been created', { theme: 'auto' })
+      toast.success(createEventSuccessMessage, { theme: 'auto' })
     })
     .catch(() => {
-      toast.error('Something went wrong', { theme: 'auto' })
+      toast.error(genericErrorMessage, { theme: 'auto' })
     })
     .finally(() => {
       resetForm()

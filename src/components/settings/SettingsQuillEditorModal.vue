@@ -7,13 +7,13 @@ const content = ref('')
 const handleInsertContent = () => {
   console.log(content.value)
   if (!content.value) {
-    toast.error(quillContentRequired, { theme: 'auto' })
+    toast.error(quillContentRequiredMessage, { theme: 'auto' })
     return
   }
 
   localStorage.setItem(EAppStorageKey.QUILL_CONTENT, content.value)
   modalsStore.hideModal('settingsQuillEditorModal')
-  toast.success(quillContentSaveSuccess, { theme: 'auto' })
+  toast.success(saveQuillContentSuccessMessage, { theme: 'auto' })
   content.value = ''
 }
 
