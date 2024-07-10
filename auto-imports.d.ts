@@ -13,6 +13,7 @@ declare global {
   const $shallowRef: typeof import('vue/macros')['$shallowRef']
   const $toRef: typeof import('vue/macros')['$toRef']
   const EAppRouting: typeof import('./src/enums/appRouting')['EAppRouting']
+  const EAppStorageKey: typeof import('./src/enums/appStorage')['EAppStorageKey']
   const EffectScope: typeof import('vue')['EffectScope']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
@@ -41,6 +42,7 @@ declare global {
   const effectScope: typeof import('vue')['effectScope']
   const eventsCategories: typeof import('./src/constants/static-data')['eventsCategories']
   const extendRef: typeof import('@vueuse/core')['extendRef']
+  const genericErrorMessage: typeof import('./src/constants/messages')['genericErrorMessage']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const h: typeof import('vue')['h']
@@ -77,6 +79,8 @@ declare global {
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
   const provide: typeof import('vue')['provide']
   const provideLocal: typeof import('@vueuse/core')['provideLocal']
+  const quillContentRequired: typeof import('./src/constants/messages')['quillContentRequired']
+  const quillContentSaveSuccess: typeof import('./src/constants/messages')['quillContentSaveSuccess']
   const reactify: typeof import('@vueuse/core')['reactify']
   const reactifyObject: typeof import('@vueuse/core')['reactifyObject']
   const reactive: typeof import('vue')['reactive']
@@ -311,6 +315,9 @@ declare global {
   // @ts-ignore
   export type { EAppRouting } from './src/enums/appRouting'
   import('./src/enums/appRouting')
+  // @ts-ignore
+  export type { EAppStorageKey } from './src/enums/appStorage'
+  import('./src/enums/appStorage')
 }
 // for vue template auto import
 import { UnwrapRef } from 'vue'
@@ -318,6 +325,7 @@ declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
     readonly EAppRouting: UnwrapRef<typeof import('./src/enums/appRouting')['EAppRouting']>
+    readonly EAppStorageKey: UnwrapRef<typeof import('./src/enums/appStorage')['EAppStorageKey']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
@@ -346,6 +354,7 @@ declare module 'vue' {
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly eventsCategories: UnwrapRef<typeof import('./src/constants/static-data')['eventsCategories']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly genericErrorMessage: UnwrapRef<typeof import('./src/constants/messages')['genericErrorMessage']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
@@ -382,6 +391,8 @@ declare module 'vue' {
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly provideLocal: UnwrapRef<typeof import('@vueuse/core')['provideLocal']>
+    readonly quillContentRequired: UnwrapRef<typeof import('./src/constants/messages')['quillContentRequired']>
+    readonly quillContentSaveSuccess: UnwrapRef<typeof import('./src/constants/messages')['quillContentSaveSuccess']>
     readonly reactify: UnwrapRef<typeof import('@vueuse/core')['reactify']>
     readonly reactifyObject: UnwrapRef<typeof import('@vueuse/core')['reactifyObject']>
     readonly reactive: UnwrapRef<typeof import('vue')['reactive']>
@@ -608,6 +619,7 @@ declare module '@vue/runtime-core' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
     readonly EAppRouting: UnwrapRef<typeof import('./src/enums/appRouting')['EAppRouting']>
+    readonly EAppStorageKey: UnwrapRef<typeof import('./src/enums/appStorage')['EAppStorageKey']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
@@ -636,6 +648,7 @@ declare module '@vue/runtime-core' {
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly eventsCategories: UnwrapRef<typeof import('./src/constants/static-data')['eventsCategories']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly genericErrorMessage: UnwrapRef<typeof import('./src/constants/messages')['genericErrorMessage']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
@@ -672,6 +685,8 @@ declare module '@vue/runtime-core' {
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly provideLocal: UnwrapRef<typeof import('@vueuse/core')['provideLocal']>
+    readonly quillContentRequired: UnwrapRef<typeof import('./src/constants/messages')['quillContentRequired']>
+    readonly quillContentSaveSuccess: UnwrapRef<typeof import('./src/constants/messages')['quillContentSaveSuccess']>
     readonly reactify: UnwrapRef<typeof import('@vueuse/core')['reactify']>
     readonly reactifyObject: UnwrapRef<typeof import('@vueuse/core')['reactifyObject']>
     readonly reactive: UnwrapRef<typeof import('vue')['reactive']>

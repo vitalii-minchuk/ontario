@@ -19,6 +19,7 @@ declare module 'vue' {
     SettingsEventSection: typeof import('./components/settings/SettingsEventSection.vue')['default']
     SettingsHeader: typeof import('./components/settings/SettingsHeader.vue')['default']
     SettingsLogoSection: typeof import('./components/settings/SettingsLogoSection.vue')['default']
+    SettingsQuillEditorModal: typeof import('./components/settings/SettingsQuillEditorModal.vue')['default']
     Toast: typeof import('./components/common/Toast.vue')['default']
     WelcomeItem: typeof import('./components/WelcomeItem.vue')['default']
   }

@@ -2,18 +2,23 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 
 interface ModalsState {
   createEventModal: boolean
+  settingsQuillEditorModal: boolean
 }
 
 export const useModalsStore = defineStore({
   id: 'modals',
 
   state: (): ModalsState => ({
-    createEventModal: false
+    createEventModal: false,
+    settingsQuillEditorModal: false
   }),
 
   getters: {
     getCreateEventModal(): boolean {
       return this.createEventModal
+    },
+    getSettingsQuillEditorModal(): boolean {
+      return this.settingsQuillEditorModal
     }
   },
 

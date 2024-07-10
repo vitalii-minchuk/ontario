@@ -8,4 +8,5 @@
     <v-divider />
     <SettingsEventSection />
   </v-container>
+  <SettingsQuillEditorModal />
 </template>
