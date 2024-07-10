@@ -15,3 +15,33 @@ export const eventsCategories = [
     name: 'studying'
   }
 ]
+
+export const fontOptions = [
+  {
+    label: 'Small',
+    font: '10px'
+  },
+  {
+    label: 'Middle',
+    font: '14px'
+  },
+  {
+    label: 'Large',
+    font: '16px'
+  }
+]
+
+export const borderRadiusOptions = [
+  {
+    label: 'Small',
+    radius: '4px'
+  },
+  {
+    label: 'Middle',
+    radius: '8px'
+  },
+  {
+    label: 'Large',
+    radius: '16px'
+  }
+]

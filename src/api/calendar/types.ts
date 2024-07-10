@@ -3,7 +3,7 @@ export interface IEvent {
   startDate: Date | string
   endDate: Date | string
   categoryId: string
-  category: null
+  category: null | string
   id: string
   createdOn: Date | string
   createdBy: null

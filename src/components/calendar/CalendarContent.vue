@@ -1,14 +1,8 @@
 <script setup lang="ts">
 const eventsStore = useEventsStore()
-
 const {
-  month,
-  year,
-  months,
   weekdays,
   header,
-  firstWeekdayInMonth,
-  daysInMonth,
   weeks,
   moveThisMonth,
   moveNextMonth,
@@ -51,6 +45,12 @@ const {
               `${day.year}-${day.month < 10 ? 0 : ''}${day.month}-${day.day < 10 ? 0 : ''}${day.day}`
             )"
             :key="event.id"
+            :style="
+              eventsStore.getEventStyleByCategory(
+                event.category as 'holiday' | 'studying' | 'conference'
+              )
+            "
+            class="event"
           >
             {{ event.name }}
           </p>
@@ -65,12 +65,12 @@ const {
   display: flex;
   justify-content: stretch;
   align-items: center;
-  color: #333; /* Replace with your header color */
-  padding: 10px; /* Replace with your header padding */
-  border-width: 1px; /* Replace with your header border width */
-  border-style: solid; /* Replace with your header border style */
-  border-color: #ccc; /* Replace with your header border color */
-  background-color: #f5f5f5; /* Replace with your header background */
+  color: #333;
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ccc;
+  background-color: #f5f5f5;
 }
 
 .header .pointer {
@@ -102,16 +102,16 @@ const {
 }
 
 .weekday {
-  width: 700px; /* Replace with your day width */
+  width: 700px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px; /* Replace with your weekday padding */
-  color: #666; /* Replace with your weekday color */
-  border-width: 1px; /* Replace with your weekday border width */
-  border-style: solid; /* Replace with your weekday border style */
-  border-color: #ddd; /* Replace with your weekday border color */
-  background-color: #e5e5e5; /* Replace with your weekday background */
+  padding: 10px;
+  color: #666;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ddd;
+  background-color: #e5e5e5;
   cursor: default;
 }
 
@@ -120,11 +120,11 @@ const {
 }
 
 .day-cell {
-  width: 700px; /* Replace with your day width */
-  min-height: 100px; /* Replace with your day height */
-  color: #333; /* Replace with your day color */
-  background-color: #fff; /* Replace with your day background color */
-  border: 1px solid #ddd; /* Replace with your day border */
+  width: 700px;
+  min-height: 100px;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ddd;
   cursor: default;
   display: flex;
   justify-content: space-between;
@@ -140,15 +140,20 @@ const {
   flex-basis: 100%;
 }
 
+.event {
+  padding: 4px 8px;
+  margin-bottom: 2px;
+}
+
 .today {
   font-weight: 500;
-  color: #fff; /* Replace with your today color */
+  color: #fff;
   background-color: #2196f3;
 }
 
 .not-in-month {
-  color: #bbb; /* Replace with your not-in-month color */
-  background-color: #f5f5f5; /* Replace with your not-in-month background color */
+  color: #bbb;
+  background-color: #f5f5f5;
 }
 
 .options {

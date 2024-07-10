@@ -6,6 +6,5 @@ const loaderStore = useLoaderStore()
   <v-app>
     <FullScreenLoader v-if="loaderStore.getIsLoading" />
     <RouterView />
-    <Toast />
   </v-app>
 </template>

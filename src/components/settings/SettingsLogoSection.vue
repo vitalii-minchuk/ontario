@@ -37,7 +37,7 @@ const handleRemoveContent = () => {
 </script>
 
 <template>
-  <v-row class="my-2">
+  <v-row class="my-6">
     <v-col>
       <h2>Change footer content</h2>
     </v-col>

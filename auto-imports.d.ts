@@ -12,11 +12,15 @@ declare global {
   const $ref: typeof import('vue/macros')['$ref']
   const $shallowRef: typeof import('vue/macros')['$shallowRef']
   const $toRef: typeof import('vue/macros')['$toRef']
+  const DEFAULT_EVENT_STYLE: typeof import('./src/constants/default-data')['DEFAULT_EVENT_STYLE']
   const EAppRouting: typeof import('./src/enums/appRouting')['EAppRouting']
   const EAppStorageKey: typeof import('./src/enums/appStorage')['EAppStorageKey']
   const EffectScope: typeof import('vue')['EffectScope']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const borderOptions: typeof import('./src/constants/static-data')['borderOptions']
+  const borderRadiusOptions: typeof import('./src/constants/static-data')['borderRadiusOptions']
+  const categoryNameByCategoryIdMapper: typeof import('./src/constants/mappers')['categoryNameByCategoryIdMapper']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -43,6 +47,7 @@ declare global {
   const effectScope: typeof import('vue')['effectScope']
   const eventsCategories: typeof import('./src/constants/static-data')['eventsCategories']
   const extendRef: typeof import('@vueuse/core')['extendRef']
+  const fontOptions: typeof import('./src/constants/static-data')['fontOptions']
   const genericErrorMessage: typeof import('./src/constants/messages')['genericErrorMessage']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
@@ -331,11 +336,14 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
+    readonly DEFAULT_EVENT_STYLE: UnwrapRef<typeof import('./src/constants/default-data')['DEFAULT_EVENT_STYLE']>
     readonly EAppRouting: UnwrapRef<typeof import('./src/enums/appRouting')['EAppRouting']>
     readonly EAppStorageKey: UnwrapRef<typeof import('./src/enums/appStorage')['EAppStorageKey']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly borderRadiusOptions: UnwrapRef<typeof import('./src/constants/static-data')['borderRadiusOptions']>
+    readonly categoryNameByCategoryIdMapper: UnwrapRef<typeof import('./src/constants/mappers')['categoryNameByCategoryIdMapper']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -362,6 +370,7 @@ declare module 'vue' {
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly eventsCategories: UnwrapRef<typeof import('./src/constants/static-data')['eventsCategories']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly fontOptions: UnwrapRef<typeof import('./src/constants/static-data')['fontOptions']>
     readonly genericErrorMessage: UnwrapRef<typeof import('./src/constants/messages')['genericErrorMessage']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
@@ -629,11 +638,14 @@ declare module 'vue' {
 declare module '@vue/runtime-core' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
+    readonly DEFAULT_EVENT_STYLE: UnwrapRef<typeof import('./src/constants/default-data')['DEFAULT_EVENT_STYLE']>
     readonly EAppRouting: UnwrapRef<typeof import('./src/enums/appRouting')['EAppRouting']>
     readonly EAppStorageKey: UnwrapRef<typeof import('./src/enums/appStorage')['EAppStorageKey']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly borderRadiusOptions: UnwrapRef<typeof import('./src/constants/static-data')['borderRadiusOptions']>
+    readonly categoryNameByCategoryIdMapper: UnwrapRef<typeof import('./src/constants/mappers')['categoryNameByCategoryIdMapper']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -660,6 +672,7 @@ declare module '@vue/runtime-core' {
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly eventsCategories: UnwrapRef<typeof import('./src/constants/static-data')['eventsCategories']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly fontOptions: UnwrapRef<typeof import('./src/constants/static-data')['fontOptions']>
     readonly genericErrorMessage: UnwrapRef<typeof import('./src/constants/messages')['genericErrorMessage']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
